@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="my_name">Click me</string>
+
+    <string name="my_textview">click number:</string>
+
+
+
+</resources>

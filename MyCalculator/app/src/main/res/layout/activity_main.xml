@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FCFF"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="796dp"
+        android:layout_height="741dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/story_background" />
+
+    <TextView
+        android:id="@+id/Result"
+        android:layout_width="297dp"
+        android:layout_height="98dp"
+        android:fontFamily="@font/amaranth_italic"
+        android:gravity="center"
+        android:text="Result"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Num1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
+
+    <Button
+        android:id="@+id/Sum"
+        android:layout_width="189dp"
+        android:layout_height="98dp"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="Sum"
+        android:text="@string/Sum"
+        app:backgroundTint="#B71C1C"
+        app:layout_constraintBottom_toTopOf="@+id/Divid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/multip"
+        android:layout_width="189dp"
+        android:layout_height="98dp"
+        android:onClick="mult"
+        android:text="@string/mult"
+        app:backgroundTint="#B71C1C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Divid"
+        android:layout_width="189dp"
+        android:layout_height="98dp"
+        android:onClick="Divi"
+        android:text="@string/Dividing"
+        app:backgroundTint="#B71C1C"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Plus"
+        android:layout_width="189dp"
+        android:layout_height="98dp"
+        android:onClick="plus"
+        android:text="@string/Plus"
+        app:backgroundTint="#B71C1C"
+        app:layout_constraintBottom_toTopOf="@+id/multip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Num1"
+        android:layout_width="365dp"
+        android:layout_height="82dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/Num1"
+        android:inputType="number"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/num2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.922" />
+
+    <EditText
+        android:id="@+id/num2"
+        android:layout_width="365dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="52dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/Num2"
+        android:inputType="number"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

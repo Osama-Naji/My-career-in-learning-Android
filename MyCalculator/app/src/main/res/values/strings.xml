@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyCalculator</string>
+    <string name="Num1">Enter first number</string>
+    <string name="Num2">Enter last number</string>
+    <string name="Plus" >Plus</string>
+    <string name="Sum">Sum</string>
+    <string name="mult">Mult</string>
+    <string name="Dividing">Divi</string>
+</resources>
