@@ -11,7 +11,7 @@ public class Utils {
     public static final String COLOUMN_NAME = "name";
     public static final String COLOUMN_LNAME = "lname";
     public static final String COLOUMN_DESCRIPTION = "description";
-    public static final String COLOUMN_AGE = "age";
+    public static final String COLON_AGE = "age";
     public static final String COLOUMN_TIME_STAMP = "timestamp";
 
 

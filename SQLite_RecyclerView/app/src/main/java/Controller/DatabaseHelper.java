@@ -6,26 +6,33 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import Model.Data;
 import Util.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public DatabaseHelper(@Nullable Context context) {
-        super(context, Utils.DATABASE_NAME,null, Utils.DATABASE_VERSION);    }
+
+
+    public DatabaseHelper(@Nullable Context context  ) {
+        super(context, Utils.DATABASE_NAME,null, Utils.DATABASE_VERSION);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-db.execSQL("CREATE TABLE "+Utils.TABLE_NAME + " (" + Utils.COLOUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"
-+ Utils.COLOUMN_NAME + " Text,"
-+ Utils.COLOUMN_LNAME + " Text,"
-+ Utils.COLOUMN_AGE + " Text,"
-+ Utils.COLOUMN_DESCRIPTION + " Text,"
-+ Utils.COLOUMN_TIME_STAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"+ ") ");
+
+        db.execSQL("CREATE TABLE " + Utils.TABLE_NAME  +" ("
+                + Utils.COLOUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Utils.COLOUMN_NAME + " TEXT,"
+                + Utils.COLOUMN_LNAME + " TEXT,"
+                + Utils.COLOUMN_DESCRIPTION + " TEXT,"
+                + Utils.COLON_AGE + " TEXT,"
+                + Utils.COLOUMN_TIME_STAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                +  " )" );
     }
 
     @Override
@@ -33,88 +40,107 @@ db.execSQL("CREATE TABLE "+Utils.TABLE_NAME + " (" + Utils.COLOUMN_ID +" INTEGER
 
         db.execSQL("DROP TABLE IF EXISTS "+ Utils.TABLE_NAME);
         onCreate(db);
-
     }
 
-    public long InsertData (Data data){
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values =new ContentValues();
-        values.put(Utils.COLOUMN_NAME,data.getName());
-        values.put(Utils.COLOUMN_LNAME,data.getLname());
-        values.put(Utils.COLOUMN_AGE,data.getAge());
-        values.put(Utils.COLOUMN_DESCRIPTION,data.getDesrption());
-        Long id =database.insert(Utils.TABLE_NAME,null,values);
-        database.close();
-        return id;
-
-    }
-    public int UpdateData (Data data){
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values =new ContentValues();
-        values.put(Utils.COLOUMN_NAME,data.getName());
-        values.put(Utils.COLOUMN_LNAME,data.getLname());
-        values.put(Utils.COLOUMN_AGE,data.getAge());
-        values.put(Utils.COLOUMN_DESCRIPTION,data.getDesrption());
-        int id =database.update(Utils.TABLE_NAME,values,Utils.COLOUMN_ID +"=?",new String[]{Utils.COLOUMN_ID});
-database.close();
-        return id;
+    public  long insertData(Data data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(Utils.COLOUMN_NAME , data.getName());
+        cv.put(Utils.COLOUMN_LNAME , data.getLname());
+        cv.put(Utils.COLOUMN_DESCRIPTION , data.getDesrption());
+        cv.put(Utils.COLON_AGE , data.getAge());
+        long id = db.insert(Utils.TABLE_NAME , null , cv);
+        db.close();
+        return  id;
     }
 
-    public void DeleteData (Data data){
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(Utils.TABLE_NAME,Utils.COLOUMN_ID +"=?",new String[]{Utils.COLOUMN_ID});
-        database.close();
-
+    public  int updateData(Data data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(Utils.COLOUMN_NAME , data.getName());
+        cv.put(Utils.COLOUMN_LNAME , data.getLname());
+        cv.put(Utils.COLOUMN_DESCRIPTION , data.getDesrption());
+        cv.put(Utils.COLON_AGE , data.getAge());
+        return db.update(Utils.TABLE_NAME , cv , "id" + " =?",
+                new String[]{String.valueOf(data.getId())});
     }
-    public Data GetData (int id){
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(Utils.TABLE_NAME,new String[]{
-                Utils.COLOUMN_ID,Utils.COLOUMN_NAME,Utils.COLOUMN_LNAME,
-                Utils.COLOUMN_AGE,Utils.COLOUMN_DESCRIPTION,Utils.COLOUMN_TIME_STAMP}
-        ,null,null,null,null,null,null);
-
-        Data data = new Data();
-        if(cursor !=null){
-cursor.moveToFirst();
-            data.setId(cursor.getInt(cursor.getColumnIndex(Utils.COLOUMN_ID)));
-            data.setName(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_NAME)));
-            data.setLname(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_LNAME)));
-            data.setDesrption(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_DESCRIPTION)));
-            data.setTimeStamp(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_TIME_STAMP)));
-cursor.close();
 
 
-        }
+    public  void deleteData(Data data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Utils.TABLE_NAME ,  Utils.COLOUMN_ID + " =?",
+                new String[]{String.valueOf(data.getId())});
+        db.close();
+    }
+
+
+    public  Data getData(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(Utils.TABLE_NAME,
+                new String[]{Utils.COLOUMN_ID,
+                        Utils.COLOUMN_NAME,Utils.COLOUMN_LNAME
+                        ,Utils.COLOUMN_DESCRIPTION,
+                        Utils.COLON_AGE,Utils.COLOUMN_TIME_STAMP},
+                Utils.COLOUMN_ID + "=?", new String[]{String.valueOf(id)},
+                null,null,null,null);
+
+        if(cursor != null)
+            cursor.moveToFirst();
+        //     Data data = new Data(
+//                cursor.getInt(cursor.getColumnIndex(Utils.COLOUMN_ID)),
+//                cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_NAME)),
+//                cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_LNAME)),
+//                cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_DESCRIPTION)),
+//                cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_AGE)),
+//                cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_TIME_STAMP))  );
+
+
+        Data data = new Data(
+                Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1) ,
+                cursor.getString(2) ,
+                cursor.getString(3) ,
+                cursor.getString(4)
+        );
+
         return data;
     }
 
-    public List <Data> GetAllData (int id){
-        SQLiteDatabase database = this.getReadableDatabase();
-       List <Data> ListAllData = new ArrayList<Data>();
-       String quary = "SELECT * FROM "+ Utils.TABLE_NAME;
-        Cursor cursor = database.rawQuery(quary,null);
 
-        Data data = new Data();
-        if(cursor != null) {
 
-            do {
 
+    public List<Data> getAllData() {
+        List<Data> allData = new ArrayList<>();
+        String query = "SELECT * FROM "+ Utils.TABLE_NAME +
+                " ORDER BY " + Utils.COLOUMN_TIME_STAMP + " DESC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery( query ,null);
+        if(cursor.moveToFirst())
+            do{
+                Data data = new Data();
                 data.setId(cursor.getInt(cursor.getColumnIndex(Utils.COLOUMN_ID)));
-                data.setName(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_NAME)));
-                data.setLname(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_LNAME)));
-                data.setDesrption(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_DESCRIPTION)));
+                data.setName( cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_NAME)));
+                data.setLname( cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_LNAME)));
+                data.setAge(cursor.getString(cursor.getColumnIndex(Utils.COLON_AGE)));
+                data.setDesrption( cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_DESCRIPTION)));
                 data.setTimeStamp(cursor.getString(cursor.getColumnIndex(Utils.COLOUMN_TIME_STAMP)));
-                cursor.close();
-                ListAllData.add(data);
-            } while (cursor.moveToFirst());
-        }
-database.close();
-return ListAllData;
 
+                allData.add(data);
 
-
-
-
-
+            }while (cursor.moveToNext());
+        db.close();
+        return allData;
     }
+
+
+    public  int getDataCount(){
+        String query = "SELECT * FROM "+ Utils.TABLE_NAME ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery( query ,null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+
 }

@@ -15,17 +15,9 @@ public class Data {
     }
 
 
-    public Data(int id, String name, String lname, String age, String timeStamp, String desrption) {
-        Id = id;
-        Name = name;
-        Lname = lname;
-        Age = age;
-        TimeStamp = timeStamp;
-        Desrption = desrption;
-    }
 
 
-    public Data(int id, String name, String lname, String age, String desrption) {
+    public Data(int id, String name, String lname, String desrption,String age) {
         Id = id;
         Name = name;
         Lname = lname;
@@ -33,7 +25,7 @@ public class Data {
         Desrption = desrption;
     }
 
-    public Data(String name, String lname, String age, String desrption) {
+    public Data(String name, String lname, String desrption,String age) {
         Name = name;
         Lname = lname;
         Age = age;
